@@ -11,8 +11,8 @@
         </h2>
         <div class="control">
           <button class="prev">Prev</button>
-          <button class="play">Play</button>
-          <button class="pause">Pause</button>
+          <button class="play" v-if="!isPlaying" @click="play">Play</button>
+          <button class="pause" v-else @click="pause">Pause</button>
           <button class="next">Next</button>
         </div>
       </section>
@@ -27,6 +27,7 @@ export default {
     return {
       current: {},
       index: 0,
+      isPlaying: false,
       songs: [
         {
           title: "Grateful",
@@ -46,6 +47,22 @@ export default {
     this.current = this.songs[this.index];
     this.player.src = this.current.src;
     //this.player.play();
+  },
+  methods: {
+    play(song) {
+      if (typeof song.src != "undefined") {
+        this.current = song;
+
+        this.player.src = this.current.src;
+      }
+
+      this.player.play();
+      this.isPlaying = true;
+    },
+    pause() {
+      this.player.pause();
+      this.isPlaying = false;
+    }
   }
 };
 </script>
