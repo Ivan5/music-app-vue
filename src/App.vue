@@ -5,7 +5,16 @@
     </header>
     <main>
       <section class="player">
-        <h2 class="song-title">Test</h2>
+        <h2 class="song-title">
+          {{current.title}} -
+          <span>{{ current.artist}}</span>
+        </h2>
+        <div class="control">
+          <button class="prev">Prev</button>
+          <button class="play">Play</button>
+          <button class="pause">Pause</button>
+          <button class="next">Next</button>
+        </div>
       </section>
     </main>
   </div>
@@ -13,7 +22,31 @@
 
 <script>
 export default {
-  name: "app"
+  name: "app",
+  data() {
+    return {
+      current: {},
+      index: 0,
+      songs: [
+        {
+          title: "Grateful",
+          artist: "Neffex",
+          src: require("./assets/neffex-grateful.mp3")
+        },
+        {
+          title: "Invincible",
+          artist: "Deaf Kev",
+          src: require("./assets/deaf-kev-invincible.mp3")
+        }
+      ],
+      player: new Audio()
+    };
+  },
+  created() {
+    this.current = this.songs[this.index];
+    this.player.src = this.current.src;
+    //this.player.play();
+  }
 };
 </script>
 
